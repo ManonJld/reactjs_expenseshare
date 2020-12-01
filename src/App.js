@@ -5,10 +5,12 @@ import Homepage from "./components/pages/Homepage";
 import Joinpage from "./components/pages/Joinpage";
 import Createpage from "./components/pages/Createpage";
 import Aboutpage from "./components/pages/Aboutpage";
+import Navbar from "./components/layout/navbar/Navbar";
 
 function App() {
   return (
     <React.Fragment>
+        <Navbar/>
       <Switch>
         <Route exact path='/' component={Homepage}/>
         <Route path='/join' component={Joinpage}/>
