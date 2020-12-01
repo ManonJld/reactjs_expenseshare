@@ -1,10 +1,12 @@
 import React from 'react';
+import JoinFormContainer from "../joinForm/JoinFormContainer";
+
 
 function Joinpage(props) {
+
+
     return (
-        <div className="container">
-            <h1>Join</h1>
-        </div>
+        <JoinFormContainer/>
     );
 }
 

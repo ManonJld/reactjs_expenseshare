@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import { createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
 import { composeWithDevTools} from "redux-devtools-extension";
 import reducer from "./reducers/reducer";
+import {fetchEvent, fetchExpenses} from "./action/action";
 
-const store = createStore(reducer, composeWithDevTools());
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+store.dispatch(fetchEvent);
+store.dispatch(fetchExpenses);
 
 ReactDOM.render(
   <React.StrictMode>
