@@ -36,7 +36,7 @@ function front(state = initialState, action) {
                 loading: { ...state.loading, event: false
                 }};
         case FETCH_EVENT_FAILURE:
-            return { ...state, error: action.payload,
+            return { ...state, error:{...state.error, event: action.payload},
                 loading: { ...state.loading, event: false
                 }};
         case CHANGE_EVENT_ID:

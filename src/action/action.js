@@ -1,10 +1,19 @@
-export function fetchEvent(){
-    return (dispatch, getState) => {
-        const state = getState();
+export function fetchEvent(eventId){
+    return (dispatch) => {
+
         dispatch(fetchEventPending());
-        fetch(process.env.REACT_APP_API_URL + '/events/' + state.front.eventId )
+        fetch(process.env.REACT_APP_API_URL + '/events/' + eventId )
             .then(response => response.json())
-            .then(data => dispatch(fetchEventSuccess(data)))
+            .then(data => {
+
+                if (data["@type"] !== "Event"){
+                    const err = "Cet évènement n'existe pas"
+                    return dispatch(fetchEventFailure(err))
+                } else {
+                    // console.log(data)
+                    return dispatch(fetchEventSuccess(data))
+                }
+            })
             .catch(err => dispatch(fetchEventFailure(err)))
     }
 }
@@ -34,11 +43,10 @@ export function closeEvent() {
     return {type: CLOSE_EVENT}
 }
 
-export function fetchExpenses(){
+export function fetchExpenses(eventId){
     return (dispatch, getState) => {
-        const state = getState();
         dispatch(fetchExpensesPending());
-        fetch(process.env.REACT_APP_API_URL + '/events/' + state.front.eventId + '/expenses')
+        fetch(process.env.REACT_APP_API_URL + '/events/' + eventId + '/expenses')
             .then(response => response.json())
             .then(data => dispatch(fetchExpensesSuccess(data['hydra:member'])))
             .catch(err => dispatch(fetchExpensesFailure(err)))

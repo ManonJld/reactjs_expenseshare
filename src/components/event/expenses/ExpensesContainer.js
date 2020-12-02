@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 import Expenses from "./Expenses";
-import { closeEvent } from "../../../action/action";
+import {fetchEvent} from "../../../action/action";
 
 
 // Envoyer des données dans les props
 const mapStateToProps = state => ({
-    event: state.front.event
+    event: state.front.event,
+    error: state.front.error.event
+
 
 })
 
 // Envoyer des fonctions dans les props
 const mapDispatchToProps = dispatch => ({
-    closeEvent: () => dispatch(closeEvent())
-
+    fetchEvent: (eventId) => dispatch(fetchEvent(eventId))
 })
 
 export default connect(

@@ -1,16 +1,28 @@
-import React from 'react';
-import {Redirect} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {Link} from "react-router-dom";
+
 
 function Expenses(props) {
-    const {event} = props;
+
+    const {event, eventId, fetchEvent, error} = props;
+
+    useEffect( () => {fetchEvent(eventId)}, [fetchEvent, eventId])
+
+         if (error){
+             return (
+                 <div className="container">
+                     <h2>cet évènement n'existe pas</h2>
+                     <Link to="/join" className="btn tbn-primary"> Retour </Link>
+                 </div>
+             )
+         }
 
     if(event === null){
-        return <Redirect to={'/join'}/>
+        return null
     }
 
     return (
         <div className="container">
-            <button className="btn btn-danger" onClick={() => props.closeEvent()} >Fermer</button>
             <h2>List of expenses for {event.name}</h2>
             <p>Identifier: {event.slug}</p>
         </div>

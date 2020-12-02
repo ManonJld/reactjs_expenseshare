@@ -7,6 +7,7 @@ import Createpage from "./components/pages/Createpage";
 import Aboutpage from "./components/pages/Aboutpage";
 import Navbar from "./components/layout/navbar/Navbar";
 import Eventpage from "./components/pages/Eventpage";
+import PageNotFound from "./components/pages/PageNotFound";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
             <Route path='/create' component={Createpage}/>
             <Route path='/about' component={Aboutpage}/>
             <Route path='/event/:eventId' component={Eventpage}/>
+            <Route>
+              <PageNotFound/>
+            </Route>
           </Switch>
     </React.Fragment>
   );
