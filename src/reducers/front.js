@@ -42,7 +42,7 @@ function front(state = initialState, action) {
         case CHANGE_EVENT_ID:
             return { ...state, eventId: action.payload};
         case CLOSE_EVENT:
-            return { ...state, event: null}
+            return { ...state, error:{...state.error, event: null}}
         case FETCH_EXPENSES_PENDING:
             return { ...state,
                 loading: { ...state.loading, expenses: true
@@ -52,7 +52,7 @@ function front(state = initialState, action) {
                 loading: { ...state.loading, expenses: false
                 }};
         case FETCH_EXPENSES_FAILURE:
-            return { ...state, error: action.payload,
+            return { ...state, error:{...state.error, expenses: action.payload},
                 loading: { ...state.loading, expenses: false
                 }};
         default:

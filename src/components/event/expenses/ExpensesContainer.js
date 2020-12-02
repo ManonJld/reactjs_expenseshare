@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Expenses from "./Expenses";
-import {fetchEvent} from "../../../action/action";
+import {closeEvent, fetchEvent} from "../../../action/action";
 
 
 // Envoyer des données dans les props
@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
 
 // Envoyer des fonctions dans les props
 const mapDispatchToProps = dispatch => ({
-    fetchEvent: (eventId) => dispatch(fetchEvent(eventId))
+    fetchEvent: (eventId) => dispatch(fetchEvent(eventId)),
+    closeEvent: () => dispatch(closeEvent())
 })
 
 export default connect(
