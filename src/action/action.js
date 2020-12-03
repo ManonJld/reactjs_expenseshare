@@ -38,6 +38,11 @@ export function changeEventId(value) {
     return {type: CHANGE_EVENT_ID, payload: value};
 }
 
+export const CHANGE_INPUT_EVENT = 'CHANGE_INPUT_EVENT';
+export function changeInputEvent(value) {
+    return {type: CHANGE_INPUT_EVENT, payload: value};
+}
+
 export const CLOSE_EVENT = 'CLOSE_EVENT';
 export function closeEvent() {
     return {type: CLOSE_EVENT}
@@ -66,4 +71,38 @@ function fetchExpensesSuccess(selectedExpenses) {
 export const FETCH_EXPENSES_FAILURE = 'FETCH_EXPENSES_FAILURE';
 function fetchExpensesFailure(error) {
     return { type: FETCH_EXPENSES_FAILURE, payload: error};
+}
+
+
+export function fetchNewEvent(){
+    return (dispatch, getState) => {
+        const state = getState();
+        const newEvent = state.front.newEvent;
+        dispatch(fetchNewEventPending());
+        fetch(process.env.REACT_APP_API_URL + '/events', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: newEvent})
+        })
+            .then(response => response.json())
+            .then(data => dispatch(fetchNewEventSuccess(data)))
+            .catch(err => dispatch(fetchNewEventFailure(err)))
+    }
+}
+
+export const FETCH_NEWEVENT_PENDING = 'FETCH_NEWEVENT_PENDING';
+function fetchNewEventPending(){
+    return { type: FETCH_NEWEVENT_PENDING}
+}
+
+export const FETCH_NEWEVENT_SUCCESS = 'FETCH_NEWEVENT_SUCCESS';
+function fetchNewEventSuccess(newEvent) {
+    return { type: FETCH_NEWEVENT_SUCCESS, payload: newEvent };
+}
+
+export const FETCH_NEWEVENT_FAILURE = 'FETCH_NEWEVENT_FAILURE';
+function fetchNewEventFailure(error) {
+    return { type: FETCH_NEWEVENT_FAILURE, payload: error};
 }

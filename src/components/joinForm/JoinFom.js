@@ -8,9 +8,7 @@ function JoinFom(props) {
         return <div>Chargement en cours...</div>
     }
 
-    // if(event !== null){
-    //     return <Redirect to={'/event/' + eventId}/>
-    // }
+
 
     return (
         <div className="container">
@@ -25,10 +23,6 @@ function JoinFom(props) {
                     </div>
                     <div className="col-auto">
                         <Link to={'/event/' + eventId} className="btn btn-info">Valider</Link>
-                        {/*<button className="btn btn-info" onClick={() => {*/}
-                        {/*    props.fetchEvent();*/}
-                        {/*    props.fetchExpenses();*/}
-                        {/*} }>Valider</button>*/}
                     </div>
                 </div>
 

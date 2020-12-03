@@ -28,7 +28,7 @@ function ExpenseCard(props) {
             <p>Dépense effectuées par {expense.user} le {new Date(expense.createdAt).toLocaleDateString()}</p>
             <p>Montant : {expense.amount} €</p>
             <p>{paid}</p>
-            <p>{category}</p>
+            {category}
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
+import NewExpenseContainer from "./newExpense/NewExpenseContainer";
 
 
 
@@ -24,9 +25,19 @@ function Expenses(props) {
     }
 
     return (
+
         <div className="container">
             <h2>List of expenses for {event.name}</h2>
             <p>Identifier: {event.slug}</p>
+
+            <div className="container">
+                <div className="row border border-info rounded">
+                    <div className="col">
+                        <NewExpenseContainer/>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     );

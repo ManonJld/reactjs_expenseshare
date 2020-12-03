@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import NewExpense from "./NewExpense";
+import NewEvent from "./NewEvent";
+import {changeInputEvent, fetchNewEvent} from "../../../action/action";
 
 
 // Envoyer des données dans les props
 const mapStateToProps = state => ({
-    event: state.front.event
+    newEvent: state.front.newEvent
 
 
 
@@ -13,10 +14,11 @@ const mapStateToProps = state => ({
 
 // Envoyer des fonctions dans les props
 const mapDispatchToProps = dispatch => ({
-
+    changeInputEvent: event => dispatch(changeInputEvent(event)),
+    fetchNewEvent: () => dispatch(fetchNewEvent()),
 })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NewExpense)
+)(NewEvent)

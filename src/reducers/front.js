@@ -6,7 +6,11 @@ import {
     CLOSE_EVENT,
     FETCH_EXPENSES_PENDING,
     FETCH_EXPENSES_SUCCESS,
-    FETCH_EXPENSES_FAILURE
+    FETCH_EXPENSES_FAILURE,
+    CHANGE_INPUT_EVENT,
+    FETCH_NEWEVENT_PENDING,
+    FETCH_NEWEVENT_SUCCESS,
+    FETCH_NEWEVENT_FAILURE,
 
 } from "../action/action"
 
@@ -14,15 +18,19 @@ import {
 const initialState = {
     loading: {
         event: false,
-        expenses: false
+        expenses: false,
+        newEvent: false
     },
     error: {
         event: null,
-        expenses: null
+        expenses: null,
+        newEvent: null
     },
     eventId: '',
     event: null,
-    expenses: []
+    expenses: [],
+    users: [],
+    newEvent: ''
 };
 
 function front(state = initialState, action) {
@@ -41,6 +49,8 @@ function front(state = initialState, action) {
                 }};
         case CHANGE_EVENT_ID:
             return { ...state, eventId: action.payload};
+        case CHANGE_INPUT_EVENT:
+            return { ...state, newEvent: action.payload};
         case CLOSE_EVENT:
             return { ...state, error:{...state.error, event: null}}
         case FETCH_EXPENSES_PENDING:
@@ -54,6 +64,17 @@ function front(state = initialState, action) {
         case FETCH_EXPENSES_FAILURE:
             return { ...state, error:{...state.error, expenses: action.payload},
                 loading: { ...state.loading, expenses: false
+                }};
+        case FETCH_NEWEVENT_PENDING:
+            return { ...state,
+                loading: { ...state.loading, newEvent: true
+                }};
+        case FETCH_NEWEVENT_SUCCESS:
+            return { ...state, loading: { ...state.loading, newEvent: false
+                }};
+        case FETCH_NEWEVENT_FAILURE:
+            return { ...state, error:{...state.error, newEvent: action.payload},
+                loading: { ...state.loading, newEvent: false
                 }};
         default:
             return state;
