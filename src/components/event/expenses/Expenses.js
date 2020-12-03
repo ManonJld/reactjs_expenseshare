@@ -19,7 +19,7 @@ function Expenses(props) {
                  </div>
              )
          }
-
+    //permet d'éviter une erreur 'event is null' si l'id entré n'existe pas car il veut afficher les infos du return principal mais ne peut pas
     if(event === null){
         return null
     }
@@ -27,11 +27,11 @@ function Expenses(props) {
     return (
 
         <div className="container">
-            <h2>List of expenses for {event.name}</h2>
-            <p>Identifier: {event.slug}</p>
+            <h2>Liste des dépenses pour l'évènement {event.name}</h2>
+            <p>Identifiant: {event.slug}</p>
 
             <div className="container">
-                <div className="row border border-info rounded">
+                <div className="row border border-info rounded mb-3 pb-3 pt-3">
                     <div className="col">
                         <NewExpenseContainer/>
                     </div>

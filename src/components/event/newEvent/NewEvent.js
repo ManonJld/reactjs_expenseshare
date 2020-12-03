@@ -2,12 +2,12 @@ import React from 'react';
 
 function NewEvent(props) {
 
-    const {newEvent} = props;
+    const {newEvent, fetchNewEvent} = props;
 
     return (
         <div className="container">
             <form onSubmit={(event) => {
-                props.fetchNewEvent();
+                fetchNewEvent();
                 event.preventDefault()
             }}>
                 <div className="form-row align-items-center">

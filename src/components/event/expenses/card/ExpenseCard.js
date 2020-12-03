@@ -12,6 +12,10 @@ function ExpenseCard(props) {
         category =  <p className="badge badge-pill badge-success">Transport</p>
     } else if (category === 'Nourriture') {
         category =  <p className="badge badge-pill badge-warning">Nourriture</p>
+    } else if (category === 'Activité'){
+        category =  <p className="badge badge-pill badge-info">Activité</p>
+    } else if (category === 'Autre'){
+        category =  <p className="badge badge-pill badge-secondary">Activité</p>
     }
 
     let paid = ''
@@ -23,12 +27,17 @@ function ExpenseCard(props) {
     }
 
     return (
-        <div>
-            <h2>{expense.title}</h2>
-            <p>Dépense effectuées par {expense.user} le {new Date(expense.createdAt).toLocaleDateString()}</p>
-            <p>Montant : {expense.amount} €</p>
-            <p>{paid}</p>
-            {category}
+        <div className="card mb-3">
+            <div className="card-header">
+                <h2>{expense.title}</h2>
+            </div>
+            <div className="card-body">
+
+                <p>Dépense effectuées par {expense.user} le {new Date(expense.createdAt).toLocaleDateString()}</p>
+                <p>Montant : {expense.amount} €</p>
+                <p>{paid}</p>
+                {category}
+            </div>
         </div>
     );
 }

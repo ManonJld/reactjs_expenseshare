@@ -9,9 +9,6 @@ const mapStateToProps = state => ({
     error: state.front.error.expenses,
     errorEvent: state.front.error.event
 
-
-
-
 })
 
 // Envoyer des fonctions dans les props

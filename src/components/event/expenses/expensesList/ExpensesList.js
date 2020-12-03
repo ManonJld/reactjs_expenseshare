@@ -17,7 +17,7 @@ function ExpensesList(props) {
     return (
         <div>
             <div className="container">
-                {expenseJsx}
+                    {expenseJsx}
             </div>
         </div>
     );}

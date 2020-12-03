@@ -8,7 +8,7 @@ function Joinpage(props) {
 
     return (
         <React.Fragment>
-            <JoinFormContainer/>
+            <JoinFormContainer/><br/>
             <NewEventContainer/>
         </React.Fragment>
     );

@@ -1,3 +1,4 @@
+// Fetch an event
 export function fetchEvent(eventId){
     return (dispatch) => {
 
@@ -33,23 +34,10 @@ function fetchEventFailure(error) {
     return { type: FETCH_EVENT_FAILURE, payload: error};
 }
 
-export const CHANGE_EVENT_ID = 'CHANGE_EVENT_ID';
-export function changeEventId(value) {
-    return {type: CHANGE_EVENT_ID, payload: value};
-}
 
-export const CHANGE_INPUT_EVENT = 'CHANGE_INPUT_EVENT';
-export function changeInputEvent(value) {
-    return {type: CHANGE_INPUT_EVENT, payload: value};
-}
-
-export const CLOSE_EVENT = 'CLOSE_EVENT';
-export function closeEvent() {
-    return {type: CLOSE_EVENT}
-}
-
+// Fetch expenses
 export function fetchExpenses(eventId){
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(fetchExpensesPending());
         fetch(process.env.REACT_APP_API_URL + '/events/' + eventId + '/expenses')
             .then(response => response.json())
@@ -73,7 +61,7 @@ function fetchExpensesFailure(error) {
     return { type: FETCH_EXPENSES_FAILURE, payload: error};
 }
 
-
+// Fetch new event
 export function fetchNewEvent(){
     return (dispatch, getState) => {
         const state = getState();
@@ -105,4 +93,128 @@ function fetchNewEventSuccess(newEvent) {
 export const FETCH_NEWEVENT_FAILURE = 'FETCH_NEWEVENT_FAILURE';
 function fetchNewEventFailure(error) {
     return { type: FETCH_NEWEVENT_FAILURE, payload: error};
+}
+
+// Fetch categories
+export function fetchCategories(){
+    return (dispatch) => {
+        dispatch(fetchCategoriesPending());
+        fetch(process.env.REACT_APP_API_URL + '/categories')
+            .then(response => response.json())
+            .then(data => dispatch(fetchCategoriesSuccess(data['hydra:member'])))
+            .catch(err => dispatch(fetchCategoriesFailure(err)))
+    }
+}
+
+export const FETCH_CATEGORIES_PENDING = 'FETCH_CATEGORIES_PENDING';
+function fetchCategoriesPending(){
+    return { type: FETCH_CATEGORIES_PENDING}
+}
+
+export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
+function fetchCategoriesSuccess(categories) {
+    return { type: FETCH_CATEGORIES_SUCCESS, payload: categories };
+}
+
+export const FETCH_CATEGORIES_FAILURE = 'FETCH_CATEGORIES_FAILURE';
+function fetchCategoriesFailure(error) {
+    return { type: FETCH_CATEGORIES_FAILURE, payload: error};
+}
+
+
+//Small actions
+
+export const CHANGE_EVENT_ID = 'CHANGE_EVENT_ID';
+export function changeEventId(value) {
+    return {type: CHANGE_EVENT_ID, payload: value};
+}
+
+export const CHANGE_INPUT_EVENT = 'CHANGE_INPUT_EVENT';
+export function changeInputEvent(value) {
+    return {type: CHANGE_INPUT_EVENT, payload: value};
+}
+
+export const CLOSE_EVENT = 'CLOSE_EVENT';
+export function closeEvent() {
+    return {type: CLOSE_EVENT}
+}
+
+//Form actions
+
+export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+export function selectCategory(category){
+    return {type: SELECT_CATEGORY, payload: category}
+}
+
+export const SELECT_PAID = 'SELECT_PAID';
+export function selectPaid(paid){
+    return {type: SELECT_PAID, payload: paid}
+}
+
+export const CHANGE_INPUT_TITLE = 'CHANGE_INPUT_TITLE';
+export function changeInputTitle(value){
+    return {type: CHANGE_INPUT_TITLE, payload: value};
+}
+
+export const CHANGE_INPUT_USER = 'CHANGE_INPUT_USER';
+export function changeInputUser(value){
+    return {type: CHANGE_INPUT_USER, payload: value};
+}
+
+export const CHANGE_INPUT_AMOUNT = 'CHANGE_INPUT_AMOUNT';
+export function changeInputAmount(value){
+    return {type: CHANGE_INPUT_AMOUNT, payload: value};
+}
+
+export const CHANGE_INPUT_DATE = 'CHANGE_INPUT_DATE';
+export function changeInputDate(value){
+    return {type: CHANGE_INPUT_DATE, payload: value};
+}
+
+// Fetch new expense
+export function fetchNewExpense(){
+    return (dispatch, getState) => {
+        console.log('fetchExpense')
+        const state = getState();
+        const title = state.front.newExpense.title;
+        const user = state.front.newExpense.user;
+        const amount = state.front.newExpense.amount;
+        const paid = state.front.newExpense.paid;
+        const date = state.front.newExpense.date;
+        const category = state.front.newExpense.category;
+        const event = state.front.event['@id'];
+        dispatch(fetchNewExpensePending());
+        fetch(process.env.REACT_APP_API_URL + '/expenses', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                user: user,
+                amount: amount,
+                paid: paid,
+                createdAt: date,
+                category: category,
+                event: event})
+        })
+            .then(response => response.json())
+            .then(data => dispatch(fetchNewExpenseSuccess(data)))
+            .catch(err => dispatch(fetchNewExpenseFailure(err)))
+    }
+}
+
+export const FETCH_NEW_EXPENSE_PENDING = 'FETCH_NEW_EXPENSE_PENDING';
+function fetchNewExpensePending(){
+    return { type: FETCH_NEW_EXPENSE_PENDING}
+}
+
+export const FETCH_NEW_EXPENSE_SUCCESS = 'FETCH_NEW_EXPENSE_SUCCESS';
+function fetchNewExpenseSuccess(newExpense) {
+    return { type: FETCH_NEW_EXPENSE_SUCCESS, payload: newExpense };
+}
+
+export const FETCH_NEW_EXPENSE_FAILURE = 'FETCH_NEW_EXPENSE_FAILURE';
+function fetchNewExpenseFailure(error) {
+    return { type: FETCH_NEW_EXPENSE_FAILURE, payload: error};
 }

@@ -16,10 +16,11 @@ function JoinFom(props) {
 
                 <div className="form-row align-items-center">
                     <div className="col-auto">
-                        <label>Event identifier</label>
+                        <label>Entrez l'identifiant de l'évènement</label>
                     </div>
                     <div className="col-auto">
-                        <input type="text" className="form-control" onChange={eventId =>props.changeEventId(eventId.target.value)} value={eventId}/>
+                        <input type="text" className="form-control"
+                               onChange={eventId =>props.changeEventId(eventId.target.value)} value={eventId}/>
                     </div>
                     <div className="col-auto">
                         <Link to={'/event/' + eventId} className="btn btn-info">Valider</Link>
